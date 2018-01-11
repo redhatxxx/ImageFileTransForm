@@ -95,6 +95,7 @@ public class MainFrame extends JFrame {
 		listpanel = new JScrollPane();
 		btnadd = new JButton();
 		btndel = new JButton();
+		btnclear = new JButton();
 		btnchsavepath = new JButton();
 		btntranfrom = new JButton();
 		
@@ -202,6 +203,17 @@ public class MainFrame extends JFrame {
 			}
 			
 		});
+		btnclear.setText(language.CLEARALL);
+		btnclear.setName("btnclear");
+		btnclear.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				clearAll();
+			}
+			
+		});
 		btndel.setText(language.DELETEFILE);
 		btndel.setName("btndel");
 		btndel.addActionListener(new ActionListener(){
@@ -271,6 +283,7 @@ public class MainFrame extends JFrame {
 		bottompanel.setLayout(new FlowLayout(FlowLayout.RIGHT,10,10));
 		bottompanel.add(btnadd);
 		bottompanel.add(btndel);
+		bottompanel.add(btnclear);
 		bottompanel.add(btntranfrom);
 		
 		JPanel myinfo = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -311,6 +324,13 @@ public class MainFrame extends JFrame {
 		            )
 		    );
 		    pack();
+	}
+	
+	protected void clearAll() {
+		// TODO Auto-generated method stub
+		filelist.clear();
+		Tfilelist.removeAll();
+		resetTable();
 	}
 	protected void showview(int i) {
 		// TODO Auto-generated method stub
@@ -354,6 +374,10 @@ public class MainFrame extends JFrame {
 		if(importtype.equals(exporttype)){
 			JOptionPane.showMessageDialog(this.getContentPane(),
 					"转换类型与输出类型相同，请更正！", "Warning", JOptionPane.INFORMATION_MESSAGE);
+		}
+		if(filelist==null||filelist.size()<=0){
+			JOptionPane.showMessageDialog(this.getContentPane(),
+					"没有转换文件！", "Warning", JOptionPane.INFORMATION_MESSAGE);			
 		}
 //		if(importtype.equals("pdf")&&exporttype.equals("jpg/jpeg")){
 //			pdftojpg();
@@ -586,6 +610,7 @@ public class MainFrame extends JFrame {
 	private JScrollPane listpanel;
 	private JButton	btnadd;
 	private JButton btndel;
+	private JButton btnclear;
 	private JButton btnchsavepath;
 	private JButton btntranfrom;
 }
